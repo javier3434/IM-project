@@ -19,11 +19,15 @@ import { AuthModule } from './modules/auth/auth.module';
     // USE chat(database name);
     // ALTER user'root'@'%' IDENTIFIED WITH mysql_native_password BY 'your password';
     TypeOrmModule.forRoot({
+      username: 'root', // e.g. 'my-db-user'
+      password: '123456', // e.g. 'my-db-password'
+      database: 'chat', // e.g. 'my-database'
       type: 'mysql',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'chat',
+      // port: 3306,
+      // host:'localhost',
+      // username: 'root',
+      // password: '123456',
+      // database: 'chat',
       charset: 'utf8mb4', // 设置chatset编码为utf8mb4
       autoLoadEntities: true,
       synchronize: true,
