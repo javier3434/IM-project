@@ -24,7 +24,7 @@ const actions: ActionTree<ChatState, RootState> = {
   // 初始化socket连接和监听socket事件
   async connectSocket({ commit, state, dispatch, rootState }, callback) {
     let user = rootState.app.user;
-    let socket: SocketIOClient.Socket = io.connect(`/?userId=${user.userId}`, { reconnection: true });
+    let socket: SocketIOClient.Socket = io.connect(`/?userId=${user.userId}`, { transports: ['websocket'], reconnection: true });
 
     socket.on('connect', async () => {
       console.log('连接成功');
