@@ -4,15 +4,16 @@
  */
 export function nameVerify(name: string): boolean {
   const nameReg = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+  //不能以_开头或结尾,只能输入大小写字母,数字和汉字
   if (name.length === 0) {
     return false;
   }
   if (!nameReg.test(name)) {
     return false;
   }
-  if (name.length > 9) {
-    return false;
-  }
+  // if (name.length > 9) {
+  //   return false;
+  // }
   return true;
 }
 
@@ -29,8 +30,8 @@ export function passwordVerify(password: string): boolean {
   if (!passwordReg.test(password)) {
     return false;
   }
-  if (password.length > 9) {
-    return false;
-  }
+  // if (password.length > 9) {
+  //   return false;
+  // }
   return true;
 }
