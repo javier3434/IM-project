@@ -9,9 +9,6 @@ function nameVerify(name) {
     if (!nameReg.test(name)) {
         return false;
     }
-    if (name.length > 9) {
-        return false;
-    }
     return true;
 }
 exports.nameVerify = nameVerify;
@@ -22,9 +19,6 @@ function passwordVerify(password) {
         return false;
     }
     if (!passwordReg.test(password)) {
-        return false;
-    }
-    if (password.length > 9) {
         return false;
     }
     return true;

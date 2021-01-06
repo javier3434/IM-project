@@ -28,12 +28,15 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
     }
     async login(data) {
-        const user = await this.userRepository.findOne({ username: data.username, password: data.password });
+        const user = await this.userRepository.findOne({
+            username: data.username,
+            password: data.password,
+        });
         if (!user) {
             return { code: 1, msg: '密码错误', data: '' };
         }
         if (!utils_1.passwordVerify(data.password) || !utils_1.nameVerify(data.username)) {
-            return { code: rcode_1.RCode.FAIL, msg: '注册校验不通过！', data: '' };
+            return { code: rcode_1.RCode.FAIL, msg: '校验不通过！', data: '' };
         }
         user.password = data.password;
         const payload = { userId: user.userId, password: data.password };
@@ -41,7 +44,7 @@ let AuthService = class AuthService {
             msg: '登录成功',
             data: {
                 user: user,
-                token: this.jwtService.sign(payload)
+                token: this.jwtService.sign(payload),
             },
         };
     }
@@ -51,7 +54,11 @@ let AuthService = class AuthService {
             return { code: rcode_1.RCode.FAIL, msg: '用户名重复', data: '' };
         }
         if (!utils_1.passwordVerify(user.password) || !utils_1.nameVerify(user.username)) {
-            return { code: rcode_1.RCode.FAIL, msg: '注册校验不通过！', data: '' };
+            return {
+                code: rcode_1.RCode.FAIL,
+                msg: '注册校验不通过！不能以_开头或结尾,只能输入大小写字母,数字和汉字,不能为空',
+                data: '',
+            };
         }
         user.avatar = `api/avatar/avatar(${Math.round(Math.random() * 19 + 1)}).png`;
         user.role = 'user';
@@ -65,7 +72,7 @@ let AuthService = class AuthService {
             msg: '注册成功',
             data: {
                 user: newUser,
-                token: this.jwtService.sign(payload)
+                token: this.jwtService.sign(payload),
             },
         };
     }
